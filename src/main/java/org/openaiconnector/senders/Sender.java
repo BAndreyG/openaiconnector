@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public interface Sender {
 
-    public Bean postTo(String request) throws Exception;
+    public String postTo(String request) throws Exception;
 
     public Bean parsingAnswer(String answer) throws Exception;
 
@@ -61,7 +61,7 @@ public interface Sender {
         URL url = new URL("https://api.openai.com/v1/models");
         HttpURLConnection connection = getGetConnection(url);
         String response = getAnswer(connection);
-        AnswersByModel aiModels = (AnswersByModel) Parser.parsingFrom(response, new AnswersByModel(), "");
+        AnswersByModel aiModels = (AnswersByModel) Parser.parsingFrom(response, new AnswersByModel());
 
         return aiModels;
     }

@@ -5,14 +5,9 @@ import com.google.gson.GsonBuilder;
 import org.openaiconnector.beans.Bean;
 
 public class Parser {
-    public static Bean parsingFrom(String json, Bean typeBean, String typeReport) throws Exception {
+    public static Bean parsingFrom(String json, Bean typeBean) throws Exception {
         GsonBuilder builder = new GsonBuilder();
         builder.excludeFieldsWithoutExposeAnnotation();
-
-//        PartDataDeserializer partDataDeserializer = new PartDataDeserializer();
-//        partDataDeserializer.registerDataType(typeReport);
-//
-//        builder.registerTypeAdapter(PartBean.class, partDataDeserializer);
 
         Gson gson = builder.create();
         return gson.fromJson(json, typeBean.getClass());

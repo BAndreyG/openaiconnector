@@ -8,17 +8,20 @@ import java.net.URL;
 
 public class ChatSender implements Sender {
     @Override
-    public Bean postTo(String request) throws Exception {
+    public String postTo(String request) throws Exception {
         URL url = new URL("https://api.openai.com/v1/chat/completions");
         HttpURLConnection connection = getPostConnection(url);
 
         sendRequest(connection, request);
 
-        return parsingAnswer(getAnswer(connection));
+        return parsingAnswer(getAnswer(connection)).toString();
     }
 
     @Override
     public Bean parsingAnswer(String answer) throws Exception {
-        return Parser.parsingFrom(answer, new AnswersChat(), "");
+        if (answer.contains("error")) {
+            return Parser.parsingFrom(answer, new AnswerError());
+        }
+        return Parser.parsingFrom(answer, new AnswersChat());
     }
 }
